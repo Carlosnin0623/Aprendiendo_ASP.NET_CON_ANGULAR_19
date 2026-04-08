@@ -1,0 +1,20 @@
+<h2>Datos de la película</h2>
+
+<h4>Implementación clásica con *ngfor</h4>
+
+<div *ngFor="let pelicula of peliculas; let indice = index">
+  <p>{{indice + 1}}) Pelicula: {{pelicula.titulo | uppercase}}</p>
+  <p>Fecha Lanzamiento: {{pelicula.fechaLanzamiento | date}}</p>
+  <p>Precio: {{pelicula.precio | currency}}</p>
+</div>
+
+<h4>Implementación clásica con for</h4>
+
+@for (pelicula of peliculas; track $index) {
+  <div>
+   <p>{{$index + 1}}) Pelicula: {{pelicula.titulo | uppercase}}</p>
+    <p>Fecha Lanzamiento: {{pelicula.fechaLanzamiento | date}}</p>
+    <p>Precio: {{pelicula.precio | currency}}</p>
+  </div>
+}
+
