@@ -1,17 +1,29 @@
-<h2>Datos de la película</h2>
 
-@for (pelicula of peliculas; track $index) {
-<div class="contenedor-pelicula">
-  <div style="display: flex; gap: 10px;">
-    <div>
-      <img [ngSrc]="pelicula.poster" width="169" height="250" />
-    </div>
+<input type="file" style="display: none;" #cargadorArchivos>
 
-    <div>
-      <p>{{$index}} Pelicula: {{pelicula.titulo | uppercase}}</p>
-      <p>Fecha Lanzamiento: {{pelicula.fechaLanzamiento | date}}</p>
-      <p>Precio: {{pelicula.precio | currency}}</p>
-    </div>
-  </div>
-</div>
-}
+<button 
+style="background-color: blue;
+ color: white;
+ border: none; 
+ width: 120px; 
+ height: 40px;
+ border-radius: 10px;
+ font-weight: bold;
+ cursor: pointer;"
+ (click)="cargadorArchivos.click()">Cargar archivo</button>
+
+<!-- Eventos en Angular -->
+<!--
+<button (click)="clickBoton()">Haz click aqui</button>
+-->
+
+
+
+
+<h2>En Cines</h2>
+
+<app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
+
+<h2>Próximos Estrenos</h2>
+
+<app-listado-peliculas [peliculas]="peliculasProximosEstrenos"></app-listado-peliculas>
