@@ -1,41 +1,42 @@
 <button (click)="agregarPelicula()">Agregar Pelicula</button>
 
+<app-listado-generico [listado]="peliculas">
+   
+    <ng-container cargando> <!-- en caso de que queramos personalizar el Loading de algun componente-->
+          
+    </ng-container>
 
-@if (!peliculas){
+    <ng-container vacio>
+      <span style="color: red;">No hay películas para mostrar</span>
+    </ng-container>
 
-<img src="Loading.gif" alt="">
-<!-- Ya esto va directamente a la carpeta public ya que esta se encarga de imagenes y archivos estaticos y busca Loading.gif -->
+    <ng-container contenido>
+        @for (pelicula of peliculas; track $index) {
+        <div class="contenedor-pelicula">
+            <div style="display: flex; gap: 10px;">
+                <div>
+                    @if(pelicula.poster){
+                    <!-- Esta propiedad [priority]="$index === 0" lo que indica que la primera imagen debe tener prioridad para cargar -->
+                    <img [ngSrc]="pelicula.poster" [priority]="$index === 0" width="169" height="250" />
 
-}@else if (peliculas.length === 0){
+                    }@else{
 
-<div>
-    <p>No hay elementos para mostrar</p>
-</div>
+                    <img [src]="" width="169" height="250" />
 
-}@else{
+                    }
+                </div>
 
-@for (pelicula of peliculas; track $index) {
-<div class="contenedor-pelicula">
-    <div style="display: flex; gap: 10px;">
-        <div>
-            @if(pelicula.poster){
-            <!-- Esta propiedad [priority]="$index === 0" lo que indica que la primera imagen debe tener prioridad para cargar -->
-            <img [ngSrc]="pelicula.poster" [priority]="$index === 0" width="169" height="250" />
-
-            }@else{
-
-            <img [src]="" width="169" height="250" />
-
-            }
+                <div>
+                    <p>{{$index}} Pelicula: {{pelicula.titulo | uppercase}}</p>
+                    <p>Fecha Lanzamiento: {{pelicula.fechaLanzamiento | date}}</p>
+                    <p>Precio: {{pelicula.precio | currency}}</p>
+                    <button
+                        style="background-color: red; color: white; border: none; width: 120px; height: 40px; border-radius: 10px; font-weight: bold; cursor: pointer;"
+                        (click)="removerPelicula(pelicula)">Borrar película</button>
+                </div>
+            </div>
         </div>
+        }
+    </ng-container>
 
-        <div>
-            <p>{{$index}} Pelicula: {{pelicula.titulo | uppercase}}</p>
-            <p>Fecha Lanzamiento: {{pelicula.fechaLanzamiento | date}}</p>
-            <p>Precio: {{pelicula.precio | currency}}</p>
-            <button style="background-color: red; color: white; border: none; width: 120px; height: 40px; border-radius: 10px; font-weight: bold; cursor: pointer;" (click)="removerPelicula(pelicula)">Borrar película</button>
-        </div>
-    </div>
-</div>
-}
-}
+</app-listado-generico>
