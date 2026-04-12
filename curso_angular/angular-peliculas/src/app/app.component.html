@@ -1,4 +1,3 @@
-
 <!-- Variables de referencia 
  
 <input type="file" style="display: none;" #cargadorArchivos>
@@ -22,10 +21,23 @@ style="background-color: blue;
 <button (click)="clickBoton()">Haz click aqui</button>
 -->
 
-<h2>En Cines</h2>
+<app-menu></app-menu>
 
-<app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
+<!--
+<app-rating [maximoRating]="5" (votado)="procesarVoto($event)"></app-rating>
+-->
 
-<h2>Próximos Estrenos</h2>
+<button mat-flat-button class="primary">Primary</button>
+<button mat-flat-button class="secondary">Secondary</button>
+<button mat-flat-button class="warn">Warn</button>
 
-<app-listado-peliculas [peliculas]="peliculasProximosEstrenos"></app-listado-peliculas>
+
+<div class="contenedor">
+    <h2>En Cines</h2>
+
+    <app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
+
+    <h2>Próximos Estrenos</h2>
+
+    <app-listado-peliculas [peliculas]="peliculasProximosEstrenos"></app-listado-peliculas>
+</div>

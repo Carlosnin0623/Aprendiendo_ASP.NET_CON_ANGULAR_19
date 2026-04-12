@@ -1,4 +1,8 @@
+<!--
 <button (click)="agregarPelicula()">Agregar Pelicula</button>
+-->
+<h2>Mi listado de películas</h2>
+
 
 <app-listado-generico [listado]="peliculas">
    
@@ -30,9 +34,9 @@
                     <p>{{$index}} Pelicula: {{pelicula.titulo | uppercase}}</p>
                     <p>Fecha Lanzamiento: {{pelicula.fechaLanzamiento | date}}</p>
                     <p>Precio: {{pelicula.precio | currency}}</p>
-                    <button
-                        style="background-color: red; color: white; border: none; width: 120px; height: 40px; border-radius: 10px; font-weight: bold; cursor: pointer;"
-                        (click)="removerPelicula(pelicula)">Borrar película</button>
+                    <button mat-flat-button (click)="removerPelicula(pelicula)">
+                    <mat-icon>delete</mat-icon>
+                    Remover</button>
                 </div>
             </div>
         </div>

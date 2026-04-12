@@ -1,10 +1,13 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MenuComponent } from './compartidos/componentes/menu/menu.component';
 import { Component, OnInit } from '@angular/core';
 import { ListadoPeliculasComponent } from './peliculas/listado-peliculas/listado-peliculas.component';
+import { RatingComponent } from "./compartidos/componentes/rating/rating.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [ListadoPeliculasComponent],
+  imports: [ListadoPeliculasComponent, MenuComponent, MatButtonModule, MatButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -59,7 +62,14 @@ export class AppComponent implements OnInit  {
   peliculasProximosEstrenos!: any[];
 
 
+  procesarVoto(voto: number){
+    alert(`Calificación otorgada: ${voto}`);
+  }
+
+/*
   clickBoton(){
     alert('Me has clikqueado');
   }
+
+*/
 }
