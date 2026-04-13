@@ -1,13 +1,14 @@
-import { MatButtonModule } from '@angular/material/button';
+
 import { MenuComponent } from './compartidos/componentes/menu/menu.component';
 import { Component, OnInit } from '@angular/core';
 import { ListadoPeliculasComponent } from './peliculas/listado-peliculas/listado-peliculas.component';
 import { RatingComponent } from "./compartidos/componentes/rating/rating.component";
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-root',
-  imports: [ListadoPeliculasComponent, MenuComponent, MatButtonModule, MatButtonModule],
+  imports: [ListadoPeliculasComponent, MenuComponent, MatButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
