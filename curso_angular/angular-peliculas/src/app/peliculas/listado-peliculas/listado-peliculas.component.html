@@ -1,8 +1,6 @@
 <!--
 <button (click)="agregarPelicula()">Agregar Pelicula</button>
 -->
-<h2>Mi listado de películas</h2>
-
 
 <app-listado-generico [listado]="peliculas">
    
@@ -15,32 +13,26 @@
     </ng-container>
 
     <ng-container contenido>
-        @for (pelicula of peliculas; track $index) {
-        <div class="contenedor-pelicula">
-            <div style="display: flex; gap: 10px;">
-                <div>
-                    @if(pelicula.poster){
-                    <!-- Esta propiedad [priority]="$index === 0" lo que indica que la primera imagen debe tener prioridad para cargar -->
-                    <img [ngSrc]="pelicula.poster" [priority]="$index === 0" width="169" height="250" />
-
-                    }@else{
-
-                    <img [src]="" width="169" height="250" />
-
-                    }
-                </div>
-
-                <div>
-                    <p>{{$index}} Pelicula: {{pelicula.titulo | uppercase}}</p>
-                    <p>Fecha Lanzamiento: {{pelicula.fechaLanzamiento | date}}</p>
-                    <p>Precio: {{pelicula.precio | currency}}</p>
-                    <button mat-flat-button (click)="removerPelicula(pelicula)">
-                    <mat-icon>delete</mat-icon>
-                    Remover</button>
-                </div>
+       <div class="peliculas-contenedor">
+          @for (pelicula of peliculas; track $index) {
+            <div class="pelicula-contenedor">
+              <a>
+                @if (pelicula.poster) {
+                   <img [src]="pelicula.poster" width="169" height="250"/>
+                }@else {
+                    <img src="default.jpg" width="169" height="250" />
+                }
+              </a>
+              <p>
+                <a>{{pelicula.titulo}}</a>
+              </p>
+              <div>
+                <a mat-flat-button>Editar</a>
+                <button mat-flat-button class="warn">Borrar</button>
+              </div>
             </div>
-        </div>
-        }
+          }
+       </div>
     </ng-container>
 
 </app-listado-generico>

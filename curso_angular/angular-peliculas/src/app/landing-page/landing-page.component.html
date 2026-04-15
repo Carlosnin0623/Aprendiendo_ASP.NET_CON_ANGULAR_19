@@ -1,0 +1,41 @@
+<!-- Variables de referencia 
+ 
+<input type="file" style="display: none;" #cargadorArchivos>
+
+<button 
+style="background-color: blue;
+ color: white;
+ border: none; 
+ width: 120px; 
+ height: 40px;
+ border-radius: 10px;
+ font-weight: bold;
+ cursor: pointer;"
+ (click)="cargadorArchivos.click()">Cargar archivo</button>
+
+-->
+
+<!-- Eventos en Angular -->
+<!--
+<button (click)="clickBoton()">Haz click aqui</button>
+-->
+
+<!--
+<app-rating [maximoRating]="5" (votado)="procesarVoto($event)"></app-rating>
+-->
+
+<!-- Aplicar estilos css con angular 19
+ 
+
+<button mat-flat-button class="primary">Primary</button>
+<button mat-flat-button class="secondary">Secondary</button>
+<button mat-flat-button class="warn">Warn</button>
+-->
+
+<h2>En Cines</h2>
+
+<app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
+
+<h2>Próximos Estrenos</h2>
+
+<app-listado-peliculas [peliculas]="peliculasProximosEstrenos"></app-listado-peliculas>
