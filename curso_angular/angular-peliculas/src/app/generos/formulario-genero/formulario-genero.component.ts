@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { GeneroCreacionDTO } from '../generos';
 
 @Component({
   selector: 'app-formulario-genero',
@@ -13,6 +14,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './formulario-genero.component.css'
 })
 export class FormularioGeneroComponent {
+
+  
+  @Output()
+  posteoFormulario = new EventEmitter<GeneroCreacionDTO>();
 
 
   // trabajando con formularios reactivos en angular
@@ -39,16 +44,13 @@ export class FormularioGeneroComponent {
   }
 
   guardarCambios() {
-    // .... Guardar cambios
-
-    // Esta linea lo que va hacer cuando se le de al boton guardar nos rediririgira a la ruta /generos
-    // this.router.navigate(['/generos']);
-
-    console.log(this.form.value);
-
+  
     if(!this.form.valid){
       return;
     }
+
+    const genero = this.form.value as GeneroCreacionDTO;
+    this.posteoFormulario.emit(genero);
 
   }
 }
