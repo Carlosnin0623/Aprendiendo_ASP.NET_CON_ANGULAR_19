@@ -1,4 +1,5 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { GeneroDTO } from './../generos';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,8 +14,15 @@ import { GeneroCreacionDTO } from '../generos';
   templateUrl: './formulario-genero.component.html',
   styleUrl: './formulario-genero.component.css'
 })
-export class FormularioGeneroComponent {
+export class FormularioGeneroComponent implements OnInit {
+  ngOnInit(): void {
+    if(this.modelo !== undefined){
+      this.form.patchValue(this.modelo);
+    }
+  }
 
+  @Input()
+  modelo: GeneroDTO | undefined;
   
   @Output()
   posteoFormulario = new EventEmitter<GeneroCreacionDTO>();
