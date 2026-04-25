@@ -5,13 +5,14 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { MatDatepickerInput, MatDatepicker, MatDatepickerToggle } from '@angular/material/datepicker';
-import { primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
+import { fechaNoPuedeSerFutura, primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
 import { ActorCreacionDTO, ActorDTO } from '../actores';
 import moment from 'moment';
+import { InputImgComponent } from "../../compartidos/componentes/input-img/input-img.component";
 
 @Component({
   selector: 'app-formulario-actores',
-  imports: [MatButtonModule, RouterLink, MatFormField, ReactiveFormsModule, MatInputModule, MatDatepickerInput, MatDatepicker, MatDatepickerToggle],
+  imports: [MatButtonModule, RouterLink, MatFormField, ReactiveFormsModule, MatInputModule, MatDatepickerInput, MatDatepicker, MatDatepickerToggle, InputImgComponent],
   templateUrl: './formulario-actores.component.html',
   styleUrl: './formulario-actores.component.css'
 })
@@ -68,26 +69,39 @@ ya con esto podemos trabajar con el datepicker sin problemas y definir como most
 
   form = this.formBuilder.group({
     nombre: ['', {validators: [Validators.required, primeraLetraMayuscula()]}],
-    fechaNacimiento: new FormControl<Date | null>(null)
+    fechaNacimiento: new FormControl<Date | null>(null, {
+      validators: [Validators.required, fechaNoPuedeSerFutura()]
+    }),
+    foto: new FormControl<File | string | null>(null)
   });
 
 
    obtenerErrorCampoNombre(): string {
-    let nombre = this.form.controls.nombre;
+    let campo = this.form.controls.nombre;
 
-    if (nombre.hasError('required')) {
+    if (campo.hasError('required')) {
       return "El campo nombre es requerido"
     }
 
-    if (nombre.hasError('primeraLetraMayuscula')) {
-      return nombre.getError('primeraLetraMayuscula').mensaje;
+    if (campo.hasError('primeraLetraMayuscula')) {
+      return campo.getError('primeraLetraMayuscula').mensaje;
     }
 
     return ""
   }
 
-  obtenerErrorCampoFechaNacimiento(){
-    
+  obtenerErrorCampoFechaNacimiento(): string{
+    let campo = this.form.controls.fechaNacimiento;
+
+    if (campo.hasError('required')) {
+      return "El campo fecha nacimiento es requerido";
+    }
+
+    if (campo.hasError('futuro')) {
+      return campo.getError('futuro').mensaje;
+    } 
+
+    return "";
   }
 
 
@@ -102,4 +116,10 @@ ya con esto podemos trabajar con el datepicker sin problemas y definir como most
     this.posteoFormulario.emit(actor);
 
   }
+
+  archivoSeleccionado(file:File){
+     this.form.controls.foto.setValue(file);
+  }
+
+
 }
