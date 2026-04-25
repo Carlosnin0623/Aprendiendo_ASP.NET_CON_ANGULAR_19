@@ -113,6 +113,11 @@ ya con esto podemos trabajar con el datepicker sin problemas y definir como most
 
     const actor = this.form.value as ActorCreacionDTO;
     actor.fechaNacimiento = moment(actor.fechaNacimiento).toDate();
+
+    if(typeof actor.foto === 'string'){
+      actor.foto = undefined;
+    }
+
     this.posteoFormulario.emit(actor);
 
   }

@@ -31,7 +31,8 @@ export class InputImgComponent {
       .catch(error => console.log(error));
 
       this.archivoSeleccionado.emit(file);
-      this.urlImagenActual = undefined
+      this.urlImagenActual = undefined;
+      
     }
   }
 

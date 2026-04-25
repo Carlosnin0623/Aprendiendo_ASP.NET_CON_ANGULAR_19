@@ -8,7 +8,7 @@ import { Component, Input, numberAttribute } from '@angular/core';
 })
 export class EditarCineComponent {
 
-
 @Input({transform: numberAttribute})
 id!: number;
+
 }
