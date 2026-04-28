@@ -1,11 +1,13 @@
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import {CineCreacionDTO} from '../cine';
+import { CineCreacionDTO } from '../cine';
 import { primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
+import { MapaComponent } from "../../compartidos/componentes/mapa/mapa.component";
+import { Coordenada } from '../../compartidos/componentes/mapa/coordenada';
 
 
 @Component({
@@ -16,7 +18,7 @@ import { primeraLetraMayuscula } from '../../compartidos/funciones/validaciones'
 })
 export class FormularioCinesComponent implements OnInit {
   ngOnInit(): void {
-    if(this.modelo !== undefined){
+    if (this.modelo !== undefined) {
       this.form.patchValue(this.modelo);
     }
   }
@@ -30,32 +32,41 @@ export class FormularioCinesComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
 
   form = this.formBuilder.group({
-    nombre: ['', {validators: [Validators.required, primeraLetraMayuscula()]}],
+    nombre: ['', { validators: [Validators.required, primeraLetraMayuscula()] }]
   });
 
 
-  obtenerErrorCampoNombre():string{
+  obtenerErrorCampoNombre(): string {
     let nombre = this.form.controls.nombre;
 
-    if(nombre.hasError('required')){
+    if (nombre.hasError('required')) {
       return 'El campo nombre es requerido';
     }
 
-    if(nombre.hasError('primeraLetraMayuscula')){
+    if (nombre.hasError('primeraLetraMayuscula')) {
       return nombre.getError('primeraLetraMayuscula').mensaje;
     }
 
     return ''
   }
 
+/*
+  coordenadaSeleccionada(coordenada: Coordenada) {
 
-  guardarCambios(){
+  this.form.patchValue(coordenada);
 
-    if(!this.form.valid){
+  }
+  */
+
+  guardarCambios() {
+
+    if (!this.form.valid) {
       return;
     }
 
     const cine = this.form.value as CineCreacionDTO;
     this.posteoFormulario.emit(cine);
   }
+
+
 }
