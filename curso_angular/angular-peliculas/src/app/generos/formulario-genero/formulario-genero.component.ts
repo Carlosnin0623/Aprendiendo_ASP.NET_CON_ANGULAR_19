@@ -33,7 +33,7 @@ export class FormularioGeneroComponent implements OnInit {
   private formbuilder = inject(FormBuilder);
 
   form = this.formbuilder.group({
-    nombre: ['', { validators: [Validators.required, primeraLetraMayuscula()] }]
+    nombre: ['', { validators: [Validators.required, primeraLetraMayuscula()]}]
   })
 
 
