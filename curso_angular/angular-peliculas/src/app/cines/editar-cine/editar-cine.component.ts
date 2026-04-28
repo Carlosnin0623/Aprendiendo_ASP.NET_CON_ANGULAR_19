@@ -3,7 +3,6 @@ import { CineCreacionDTO, CineDTO } from '../cine';
 import { FormularioCinesComponent } from "../formulario-cines/formulario-cines.component";
 
 @Component({
-  selector: 'app-editar-cine',
   imports: [FormularioCinesComponent],
   templateUrl: './editar-cine.component.html',
   styleUrl: './editar-cine.component.css'
