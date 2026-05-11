@@ -1,3 +1,4 @@
+import { SelectorMultipleDTO } from './../../compartidos/componentes/selector-multiple/SelectorMultipleModelo';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
@@ -9,10 +10,11 @@ import { InputImgComponent } from '../../compartidos/componentes/input-img/input
 import { PeliculaCreacionDTO, PeliculaDTO } from '../peliculas';
 import moment from 'moment';
 import {primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
+import { SelectorMultipleComponent } from "../../compartidos/componentes/selector-multiple/selector-multiple.component";
 
 @Component({
   selector: 'app-formulario-peliculas',
-  imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterLink, MatDatepickerModule, InputImgComponent],
+  imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterLink, MatDatepickerModule, InputImgComponent, SelectorMultipleComponent],
   templateUrl: './formulario-peliculas.component.html',
   styleUrl: './formulario-peliculas.component.css'
 })
@@ -22,6 +24,20 @@ ngOnInit(): void {
     this.form.patchValue(this.modelo);
   }
 }
+
+
+@Input({required:true})
+generosNoSeleccionados!: SelectorMultipleDTO[];
+
+@Input({required:true})
+generosSeleccionados!: SelectorMultipleDTO[];
+
+
+@Input({required:true})
+cinesNoSeleccionados!: SelectorMultipleDTO[];
+
+@Input({required:true})
+cinesSeleccionados!: SelectorMultipleDTO[];
 
 
 @Input()
@@ -52,6 +68,13 @@ guardarCambios(){
   const pelicula = this.form.value as PeliculaCreacionDTO;
 
   pelicula.fechaLanzamiento = moment(pelicula.fechaLanzamiento).toDate();
+
+  const generosIds = this.generosSeleccionados.map(val => val.llave);
+
+  pelicula.generosIds = generosIds;
+
+  const cinesIds = this.cinesSeleccionados.map(val => val.llave);
+  pelicula.cinesIds = cinesIds;
 
   this.posteoFormulario.emit(pelicula);
 }
