@@ -1,11 +1,11 @@
 import { ActorAutoCompleteDTO, ActorCreacionDTO } from './../actores';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOption } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import {MatTableModule} from '@angular/material/table';
+import {MatTable, MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-autocomplete-actores',
@@ -27,10 +27,22 @@ export class AutocompleteActoresComponent {
   actoresSeleccionados: ActorAutoCompleteDTO[] = [];
 
 
-  columnasAMostrar = ['imagen','nombre','personaje','acciones']
+  columnasAMostrar = ['imagen','nombre','personaje','acciones'];
+
+  @ViewChild(MatTable) table!: MatTable<ActorAutoCompleteDTO>;
 
   actorSeleccionado(event: MatAutocompleteSelectedEvent){
    this.actoresSeleccionados.push(event.option.value);
    this.control.patchValue(''); /* Para limpiar el texbox del autocomplete */
+
+   if(this.table != undefined){
+    this.table.renderRows();
+   }
+  }
+
+  eliminar(actor:ActorAutoCompleteDTO){
+   const indice = this.actoresSeleccionados.findIndex((a: ActorAutoCompleteDTO) => a.id === actor.id);
+   this.actoresSeleccionados.splice(indice, 1);
+   this.table.renderRows();
   }
 }
