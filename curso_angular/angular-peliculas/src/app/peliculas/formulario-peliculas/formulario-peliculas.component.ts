@@ -11,10 +11,11 @@ import { PeliculaCreacionDTO, PeliculaDTO } from '../peliculas';
 import moment from 'moment';
 import {primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
 import { SelectorMultipleComponent } from "../../compartidos/componentes/selector-multiple/selector-multiple.component";
+import { AutocompleteActoresComponent } from "../../actores/autocomplete-actores/autocomplete-actores.component";
 
 @Component({
   selector: 'app-formulario-peliculas',
-  imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterLink, MatDatepickerModule, InputImgComponent, SelectorMultipleComponent],
+  imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterLink, MatDatepickerModule, InputImgComponent, SelectorMultipleComponent, AutocompleteActoresComponent],
   templateUrl: './formulario-peliculas.component.html',
   styleUrl: './formulario-peliculas.component.css'
 })
