@@ -6,10 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {MatTable, MatTableModule} from '@angular/material/table';
+import { CdkDragDrop, DragDropModule, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-autocomplete-actores',
-  imports: [MatAutocomplete, ReactiveFormsModule, MatFormFieldModule, MatIconModule, FormsModule, MatTableModule, MatInputModule, MatAutocompleteTrigger, MatOption],
+  imports: [MatAutocomplete, ReactiveFormsModule, MatFormFieldModule, MatIconModule, FormsModule, MatTableModule, MatInputModule, MatAutocompleteTrigger, MatOption, CdkDropList, CdkDrag],
   templateUrl: './autocomplete-actores.component.html',
   styleUrl: './autocomplete-actores.component.css'
 })
@@ -44,5 +45,11 @@ export class AutocompleteActoresComponent {
    const indice = this.actoresSeleccionados.findIndex((a: ActorAutoCompleteDTO) => a.id === actor.id);
    this.actoresSeleccionados.splice(indice, 1);
    this.table.renderRows();
+  }
+
+  finalizarArrastre(event: CdkDragDrop<any[]>){
+    const indicePrevio = this.actoresSeleccionados.findIndex(actor => actor.id === event.item.data);
+    moveItemInArray(this.actoresSeleccionados, indicePrevio, event.currentIndex)
+    this.table.renderRows();
   }
 }
