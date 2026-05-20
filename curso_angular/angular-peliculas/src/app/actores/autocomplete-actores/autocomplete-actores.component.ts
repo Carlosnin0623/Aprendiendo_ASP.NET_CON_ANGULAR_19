@@ -41,15 +41,16 @@ export class AutocompleteActoresComponent {
    }
   }
 
+
+  finalizarArrastre(event: CdkDragDrop<any[]>){
+    const indicePrevio = this.actoresSeleccionados.findIndex(actor => actor === event.item.data);
+    moveItemInArray(this.actoresSeleccionados, indicePrevio, event.currentIndex)
+    this.table.renderRows();
+  }
+
   eliminar(actor:ActorAutoCompleteDTO){
    const indice = this.actoresSeleccionados.findIndex((a: ActorAutoCompleteDTO) => a.id === actor.id);
    this.actoresSeleccionados.splice(indice, 1);
    this.table.renderRows();
-  }
-
-  finalizarArrastre(event: CdkDragDrop<any[]>){
-    const indicePrevio = this.actoresSeleccionados.findIndex(actor => actor.id === event.item.data);
-    moveItemInArray(this.actoresSeleccionados, indicePrevio, event.currentIndex)
-    this.table.renderRows();
   }
 }

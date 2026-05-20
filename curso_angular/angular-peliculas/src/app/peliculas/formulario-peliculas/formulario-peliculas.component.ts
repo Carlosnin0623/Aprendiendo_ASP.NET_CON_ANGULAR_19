@@ -12,6 +12,7 @@ import moment from 'moment';
 import {primeraLetraMayuscula } from '../../compartidos/funciones/validaciones';
 import { SelectorMultipleComponent } from "../../compartidos/componentes/selector-multiple/selector-multiple.component";
 import { AutocompleteActoresComponent } from "../../actores/autocomplete-actores/autocomplete-actores.component";
+import { ActorAutoCompleteDTO } from '../../actores/actores';
 
 @Component({
   selector: 'app-formulario-peliculas',
@@ -39,6 +40,12 @@ cinesNoSeleccionados!: SelectorMultipleDTO[];
 
 @Input({required:true})
 cinesSeleccionados!: SelectorMultipleDTO[];
+
+@Input({required:true})
+actoresSeleccionados!: ActorAutoCompleteDTO[];
+
+
+
 
 
 @Input()
@@ -76,6 +83,8 @@ guardarCambios(){
 
   const cinesIds = this.cinesSeleccionados.map(val => val.llave);
   pelicula.cinesIds = cinesIds;
+
+  pelicula.actores = this.actoresSeleccionados;
 
   this.posteoFormulario.emit(pelicula);
 }
